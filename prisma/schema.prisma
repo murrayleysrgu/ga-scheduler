@@ -1,19 +1,20 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider = "prisma-client-js"
-    previewFeatures = ["jsonProtocol"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
 }
+
+
 
 model Example {
     id        String   @id @default(cuid())
@@ -64,4 +65,41 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model diesel_schema_migrations {
+  version String   @id @db.VarChar(50)
+  run_on  DateTime @default(now()) @db.Timestamp(0)
+
+  @@map("__diesel_schema_migrations")
+}
+
+model bird {
+  id                  Int    @id @default(autoincrement())
+  name                String @db.VarChar(255)
+  scientific_name     String @db.VarChar(255)
+  commonwealth_status String @db.VarChar(255)
+}
+
+model bird_sighting {
+  id                     Int       @id @default(autoincrement())
+  bird_id                Int
+  sighting_date          DateTime? @default(now()) @db.Timestamp(0)
+  sighting_location      String?   @db.VarChar(255)
+  additional_information String?   @db.Text
+}
+
+model job_cards {
+  id           String   @id
+  created_at   DateTime @default(now()) @db.DateTime(0)
+  updated_at   DateTime @db.DateTime(0)
+  job_name     String
+  job_number   String
+  job_workshop String
+  job_status   String
+  due_date     DateTime @db.DateTime(0)
+  job_contact  String
+
+  @@index([job_name], map: "job_name")
+  @@index([job_number], map: "job_number")
 }
