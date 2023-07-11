@@ -62,8 +62,8 @@ export default function Jobs() {
                     <ContextMenu>
                       <ContextMenuTrigger>
                         <Avatar >
-                            <AvatarImage src={session.user.image ?? ""} />
-                            <AvatarFallback>{session.user.name.split(" ") 
+                            <AvatarImage src={session.user?.image ?? ""} />
+                            <AvatarFallback>{session.user?.name?.split(" ") 
                             .map((name) => name[0])
                             .join("") ?? ""}</AvatarFallback>
                         </Avatar>
