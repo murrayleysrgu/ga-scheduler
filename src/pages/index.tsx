@@ -5,7 +5,8 @@ import { api } from "~/utils/api";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
+ const { data: session } = useSession()
+  if (session) {
   return (
     <>
       <Head>
@@ -43,6 +44,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="flex flex-col items-center gap-2">
+          <p className="text-lg text-white"><Link href='jobs'>Jobs List</Link></p>
             <p className="text-2xl text-white">
               {hello.data ? hello.data.greeting : "Loading tRPC query..."}
             </p>
@@ -53,7 +55,17 @@ export default function Home() {
     </>
   );
 }
-
+else {
+   return <>
+        <Head>
+        <title>Sign In:: Workshops App</title>
+        <meta name="description" content="Sign in " />
+        <link rel="icon" href="/favicon.ico" />
+        </Head>
+        you not signed in bro <button  onClick={()=>void signIn()}>Sign in</button> 
+  </>
+}
+}
 function AuthShowcase() {
   const { data: sessionData } = useSession();
 
@@ -65,7 +77,7 @@ function AuthShowcase() {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
+        {sessionData && <span>Logged in as {sessionData.user?.name} - {sessionData.user?.email}</span>}
         {secretMessage && <span> - {secretMessage}</span>}
       </p>
       <button

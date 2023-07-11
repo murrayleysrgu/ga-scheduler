@@ -1,12 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html, body, #root,#root div:only-child, .gantt-container {
-  height: 100%;
-}
-
-
-
  
 @layer base {
   :root {
