@@ -82,13 +82,7 @@ export default function Jobs() {
             </div>
         </header> 
 
-            <h1 className="mt-20">Jobs</h1>
-      <button
-        className="rounded bg-slate-400 px-3 py-1  text-black no-underline transition hover:bg-slate-200"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
+     <div className="mt-24 mx-10"> 
       <Button className="mx-2" onClick={()=>setWorkshop("ELEC")}>ELEC</Button>
       <Button className="mx-2" onClick={()=>setWorkshop("FAB")}>FAB</Button>
       <Button className="mx-2" onClick={()=>setWorkshop("HYD")}>HYD</Button>
@@ -98,12 +92,11 @@ export default function Jobs() {
       <Button className="mx-2" onClick={()=>setWorkshop("P&M")}>P&M</Button>
       <Button className="mx-2" onClick={()=>setWorkshop("PAINT")}>PAINT</Button>
       <Button className="mx-2" onClick={()=>setWorkshop("")}>ALL</Button>
-            <p>Session: {JSON.stringify(session)}</p>
-            <p>Status: {status}</p>
+            
 
 
 
-            <table id="table-1" className="table-fixed mt-10 mx-10">
+            <table id="table-1" className="table-fixed mt-10">
                 <thead className="bg-slate-200 my-5">
                     <tr>
                         <th className="border border-slate-600 w-20 text-center">id</th>
@@ -137,7 +130,7 @@ export default function Jobs() {
                     ))}
                 </tbody>
             </table>
-      
+     </div> 
 
         </main>
         </>
