@@ -82,7 +82,7 @@ export default function Jobs() {
             </div>
         </header> 
 
-     <div className="mt-24 mx-10"> 
+     <div className="mt-24 mx-10">
       <Button className="mx-2" onClick={()=>setWorkshop("ELEC")}>ELEC</Button>
       <Button className="mx-2" onClick={()=>setWorkshop("FAB")}>FAB</Button>
       <Button className="mx-2" onClick={()=>setWorkshop("HYD")}>HYD</Button>
@@ -92,11 +92,13 @@ export default function Jobs() {
       <Button className="mx-2" onClick={()=>setWorkshop("P&M")}>P&M</Button>
       <Button className="mx-2" onClick={()=>setWorkshop("PAINT")}>PAINT</Button>
       <Button className="mx-2" onClick={()=>setWorkshop("")}>ALL</Button>
-            
+        <div className="float-right">
+        <Button className="mx-2">Add Job</Button>
+        </div>
 
 
 
-            <table id="table-1" className="table-fixed mt-10">
+            <table id="table-1" className="table-fixed  text-xs mt-10">
                 <thead className="bg-slate-200 my-5">
                     <tr>
                         <th className="border border-slate-600 w-20 text-center">id</th>
@@ -123,7 +125,7 @@ export default function Jobs() {
                             <td className="text-center border border-slate-300">{job.job_workshop}</td>
                             <td className="text-center border border-slate-300">{job.job_ctr}</td>
                             <td className="text-center border border-slate-300">{job.due_date.toLocaleDateString()}</td>
-                            <td className="text-center border border-slate-300">{job.start_date.toLocaleDateString()}</td>
+                            <td className="text-center border border-slate-300">{job.start_date?.toLocaleDateString()}</td>
                             <td className="text-center border border-slate-300">{job.end_date.toLocaleDateString()}</td>
                             <td className="text-center border border-slate-300"><Link href={`/jobs/${job.id}`}>{job.ctr}</Link></td>
                         </tr>

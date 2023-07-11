@@ -62,7 +62,7 @@ else {
         <meta name="description" content="Sign in " />
         <link rel="icon" href="/favicon.ico" />
         </Head>
-        you not signed in bro <button  onClick={()=>void signIn()}>Sign in</button> 
+        you not signed in <button  onClick={()=>void signIn()}>Sign in</button> 
   </>
 }
 }
