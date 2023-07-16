@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure,  protectedProcedure, } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure, } from "~/server/api/trpc";
 
 export const job_cardsRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {

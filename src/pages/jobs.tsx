@@ -37,14 +37,16 @@ export default function Jobs() {
     const {data} = api.jobcards.getAll.useQuery();
     const [workshop, setWorkshop] = useState("ELEC");
     const [isLoading, setIsLoading] = useState(false);
+    const [scheduled, setScheduled] = useState(false);
+    const [isCalculating, setIsCalculating] = useState(false);
     const queryClient = useQueryClient();
-    if(session) {
-        const filteredData = data ? data.filter((job) => {
+    if(session) {        const filteredData = data ? data.filter((job) => {
             if (workshop === "") {
                 return true;
             }
             return  job.job_workshop === workshop}) : [];
 
+         // function to import jobs from csv file
          const handleButtonClick = async () => {
          try {
             setIsLoading(true);
@@ -64,15 +66,44 @@ export default function Jobs() {
                 setTimeout(() => {  console.log("Refresh!");
                     queryClient.invalidateQueries();
                     setIsLoading(false);
-                    }, 3000);
+                    }, 10000);
                 void queryClient.invalidateQueries();
             }
 
-        };  
+        }; 
+
+
+         const handleButtonClickSchedule = async () => {
+         try {
+            setIsCalculating(true);
+            const response = await fetch('/api/schedule', {
+                method: 'GET',
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data); // Handle the response as needed
+            } else {
+                console.log('An error occurred while loading data.');
+            }
+            } catch (error) {
+                console.log('An error occurred while loading data.', error);
+            } finally {
+                
+                 console.log("Refresh!");
+                    queryClient.invalidateQueries();
+                    setIsCalculating(false);
+                    setScheduled(true);
+                                    void queryClient.invalidateQueries();
+            }
+
+        }; 
+
+
         return (
             <>
             <Head>
                 <title>Jobs</title>
+                <link rel="icon" href="/favicon.png" />
             </Head>
             <main>
             <header className="fixed top-0   bg-white w-full py-3  px-10  border-b-2  border-gray-500" >
@@ -82,7 +113,6 @@ export default function Jobs() {
                     <Link href='/jobs' className="text-slate-600 font-bold hover:text-black pr-5">Jobs</Link>
                     <Link href='/resources' className="text-slate-600 font-semi-bold hover:text-black pr-5">Resources</Link>
                     <Link href='/availability' className="text-slate-600 font-semi-bold hover:text-black pr-5">Availability</Link>
-                    <Link href='/' className="text-slate-600 font-semi-bold hover:text-black hover:bg-gray-50 pr-5">Scheduler</Link>
                 </div>
                 <div>
                     <div className="float-right">
@@ -120,7 +150,10 @@ export default function Jobs() {
           <Button className="mx-2" onClick={()=>setWorkshop("PAINT")}>PAINT</Button>
           <Button className="mx-2" onClick={()=>setWorkshop("")}>ALL</Button>
             <div className="float-right">
-            <Button className="mx-2" onClick={handleButtonClick}>{isLoading ? 'Loading...' : 'Import Jobs'}</Button>
+            {filteredData?.length > 0 ? 
+            <Button className="mx-2" disabled={isCalculating} onClick={handleButtonClickSchedule}>{isCalculating ? 'Calculating...' : scheduled ? 'Re-Schedule jobs' : 'Schedule Jobs'}</Button>
+            : null }
+            <Button className="mx-2" disabled={isLoading} onClick={handleButtonClick}>{isLoading ? 'Loading...' : 'Import Jobs'}</Button>
             </div>
 
 
@@ -152,8 +185,8 @@ export default function Jobs() {
                                 <td className="text-center border border-slate-300">{job.job_workshop}</td>
                                 <td className="text-center border border-slate-300">{job.job_ctr}</td>
                                 <td className="text-center border border-slate-300">{job.due_date.toLocaleDateString()}</td>
-                                <td className="text-center border border-slate-300">{job.start_date?.toLocaleDateString()}</td>
-                                <td className="text-center border border-slate-300">{job.end_date.toLocaleDateString()}</td>
+                                <td className="text-center border border-slate-300">{scheduled ? job.start_date?.toLocaleDateString() : ''}</td>
+                                <td className="text-center border border-slate-300">{scheduled ? job.end_date.toLocaleDateString() : ''}</td>
                                 <td className="text-center border border-slate-300"><Link href={`/jobs/${job.id}`}>{job.ctr}</Link></td>
                             </tr>
                         ))}
@@ -164,5 +197,36 @@ export default function Jobs() {
             </main>
             </>
         ) 
-            } else {}
+            } else {
+
+                return (
+
+            <>
+            <Head>
+                <title>Jobs</title>
+                <link rel="icon" href="/favicon.png" />
+            </Head>
+            <main>
+            <header className="fixed top-0   bg-white w-full py-3  px-10  border-b-2  border-gray-500" >
+                <div className="grid grid-cols-2">
+                <div> 
+                    <Link href='/' className="text-lg text-slate-600 font-semi-bold hover:text-black pr-10" >AI Scheduler</Link>
+                </div>
+                <div>
+                    <div className="float-right">
+            
+                               <button onClick={()=>signIn()}>Login</button> 
+            
+
+                    </div> 
+                  </div>         
+                </div>
+            </header>
+            </main>
+            </>
+            )
+
+
+
+                }
 }

@@ -1,6 +1,6 @@
 import { exampleRouter } from "~/server/api/routers/example";
 import { jobsRouter } from "~/server/api/routers/jobs";
-import {job_cardsRouter} from "~/server/api/routers/job_cards";
+import { job_cardsRouter } from "~/server/api/routers/job_cards";
 import { createTRPCRouter } from "~/server/api/trpc";
 
 /**

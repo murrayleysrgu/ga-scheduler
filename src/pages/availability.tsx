@@ -1,5 +1,4 @@
 
-
 import Head from "next/head";
 import Link from "next/link";
 import { SessionProvider, useSession, signIn, signOut } from "next-auth/react"
@@ -29,8 +28,6 @@ import {
 } from "../components/ui/context-menu"
 import {useState } from "react";
 import { useQueryClient } from '@tanstack/react-query'
-
-
 
 
 export default function Jobs() {
@@ -81,6 +78,7 @@ export default function Jobs() {
         <>
         <Head>
             <title>Jobs</title>
+            <link rel="icon" href="/favicon.png" />
         </Head>
         <main>
         <header className="fixed top-0   bg-white w-full py-3  px-10  border-b-2  border-gray-500" >
@@ -90,7 +88,6 @@ export default function Jobs() {
                 <Link href='/jobs' className="text-slate-600 font-semi-bold hover:text-black pr-5">Jobs</Link>
                 <Link href='/resources' className="text-slate-600 font-semi-bold hover:text-black pr-5">Resources</Link>
                 <Link href='/availability' className="text-slate-600 font-bold hover:text-black pr-5">Availability</Link>
-                <Link href='/' className="text-slate-600 font-semi-bold hover:text-black hover:bg-gray-50 pr-5">Scheduler</Link>
             </div>
             <div>
                 <div className="float-right">
@@ -118,15 +115,7 @@ export default function Jobs() {
         </header> 
 
      <div className="mt-24 mx-10">
-      <Button className="mx-2" onClick={()=>setWorkshop("ELEC")}>ELEC</Button>
-      <Button className="mx-2" onClick={()=>setWorkshop("FAB")}>FAB</Button>
-      <Button className="mx-2" onClick={()=>setWorkshop("HYD")}>HYD</Button>
-      <Button className="mx-2" onClick={()=>setWorkshop("MECH")}>MECH</Button>
-      <Button className="mx-2" onClick={()=>setWorkshop("M/C")}>M/C</Button>
-      <Button className="mx-2" onClick={()=>setWorkshop("NDT")}>NDT</Button>
-      <Button className="mx-2" onClick={()=>setWorkshop("P&M")}>P&M</Button>
-      <Button className="mx-2" onClick={()=>setWorkshop("PAINT")}>PAINT</Button>
-      <Button className="mx-2" onClick={()=>setWorkshop("")}>ALL</Button>
+
         <div className="float-right">
         <Button className="mx-2"onClick={handleButtonClick}>{isLoading ? 'Loading...' : 'Import Calendar'}</Button>
         </div>
@@ -164,5 +153,34 @@ export default function Jobs() {
         </main>
         </>
     ) 
-            } else {}
+            } else {
+
+            return (
+
+            <>
+            <Head>
+                <title>Jobs</title>
+                <link rel="icon" href="/favicon.png" />
+            </Head>
+            <main>
+            <header className="fixed top-0   bg-white w-full py-3  px-10  border-b-2  border-gray-500" >
+                <div className="grid grid-cols-2">
+                <div> 
+                    <Link href='/' className="text-lg text-slate-600 font-semi-bold hover:text-black pr-10" >AI Scheduler</Link>
+                </div>
+                <div>
+                    <div className="float-right">
+            
+                               <button onClick={()=>signIn()}>Login</button> 
+            
+
+                    </div> 
+                  </div>         
+                </div>
+            </header>
+            </main>
+            </>
+            )
+
+         }
 }

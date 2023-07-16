@@ -71,6 +71,7 @@ const queryClient = useQueryClient();
         <>
         <Head>
             <title>Jobs</title>
+            <link rel="icon" href="/favicon.png" />
         </Head>
         <main>
         <header className="fixed top-0   bg-white w-full py-3  px-10  border-b-2  border-gray-500" >
@@ -80,7 +81,6 @@ const queryClient = useQueryClient();
                 <Link href='/jobs' className="text-slate-600 font-semi-bold hover:text-black pr-5">Jobs</Link>
                 <Link href='/resources' className="text-slate-600 font-bold hover:text-black pr-5">Resources</Link>
                 <Link href='/availability' className="text-slate-600 font-semi-bold hover:text-black pr-5">Availability</Link>
-                <Link href='/' className="text-slate-600 font-semi-bold hover:text-black hover:bg-gray-50 pr-5">Scheduler</Link>
             </div>
             <div>
                 <div className="float-right">
@@ -122,7 +122,7 @@ const queryClient = useQueryClient();
         </div>
 
             
-<div className="text-xs mt-10">{filteredData?.length} Resouces found</div>
+            <div className="text-xs mt-10">{filteredData?.length} Resouces found</div>
             <table id="table-1" className="table-fixed mt-2  text-xs">
                 <thead className="bg-slate-200 my-5">
                     <tr>
@@ -155,5 +155,38 @@ const queryClient = useQueryClient();
         </main>
         </>
     ) 
-            } else {}
+            } else {
+
+
+            return (
+
+            <>
+            <Head>
+                <title>Jobs</title>
+                <link rel="icon" href="/favicon.png" />
+            </Head>
+            <main>
+            <header className="fixed top-0   bg-white w-full py-3  px-10  border-b-2  border-gray-500" >
+                <div className="grid grid-cols-2">
+                <div> 
+                    <Link href='/' className="text-lg text-slate-600 font-semi-bold hover:text-black pr-10" >AI Scheduler</Link>
+                </div>
+                <div>
+                    <div className="float-right">
+            
+                               <button onClick={()=>signIn()}>Login</button> 
+            
+
+                    </div> 
+                  </div>         
+                </div>
+            </header>
+            </main>
+            </>
+            )
+
+
+
+
+                }
 }
